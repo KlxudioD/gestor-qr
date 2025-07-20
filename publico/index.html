@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -13,77 +14,80 @@
     <h2>Registro Nacional de Servicios Turísticos</h2>
 
     <form class="formulario" action="/submit" method="POST">
-  <p class="registro-nro">Registro Nº 
-    <input type="text" name="numero_registro" class="input-sm" placeholder="N° Registro">
-  </p>
+      <p class="registro-nro">Registro Nº
+        <input type="text" name="numero_registro" class="input-sm" placeholder="N° Registro">
+      </p>
 
-  <div class="caja-estado">
-    <div class="vigente">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-        <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
-      </svg>
-    </div>
-  </div>
+      <div class="caja-estado">
+        <div class="vigente">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+            <path
+              d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
+          </svg>
+        </div>
+      </div>
 
-  <div class="clase">Alojamiento turístico</div>
+      <div class="clase">Alojamiento turístico</div>
 
-  <p><b>Tipo:</b> 
-    <input type="text" name="tipo_alojamiento" class="input-sm" placeholder="Ej: Cabañas">
-  </p>
+      <p><b>Tipo:</b>
+        <input type="text" name="tipo_alojamiento" class="input-sm" placeholder="Ej: Cabañas">
+      </p>
 
-  <div class="campo">
-    <label><b>Nombre Comercial</b></label>
-    <input type="text" name="nombre_comercial" placeholder="Nombre del servicio">
-  </div>
+      <div class="campo">
+        <label><b>Nombre Comercial</b></label>
+        <input type="text" name="nombre_comercial" placeholder="Nombre del servicio">
+      </div>
 
-  <div class="campo">
-    <label><b>Región</b></label>
-    <input type="text" name="region" placeholder="Ej: Región de La Araucanía">
-  </div>
+      <div class="campo">
+        <label><b>Región</b></label>
+        <input type="text" name="region" placeholder="Ej: Región de La Araucanía">
+      </div>
 
-  <div class="campo">
-    <label><b>RUT Empresa</b></label>
-    <input type="text" name="rut_empresa" placeholder="Ej: 76050686-9">
-  </div>
+      <div class="campo">
+        <label><b>RUT Empresa</b></label>
+        <input type="text" name="rut_empresa" placeholder="Ej: 76050686-9">
+      </div>
 
-  <div class="campo">
-    <label><b>Razón Social</b></label>
-    <input type="text" name="razon_social" placeholder="Ej: SOC. COMERCIAL VALLE DEL RIO LTDA">
-  </div>
+      <div class="campo">
+        <label><b>Razón Social</b></label>
+        <input type="text" name="razon_social" placeholder="Ej: SOC. COMERCIAL VALLE DEL RIO LTDA">
+      </div>
 
-  <div class="campo">
-    <label><b>Dirección</b></label>
-    <input type="text" name="direccion" placeholder="Ej: PARCELA 6, Curacautín">
-  </div>
+      <div class="campo">
+        <label><b>Dirección</b></label>
+        <input type="text" name="direccion" placeholder="Ej: PARCELA 6, Curacautín">
+      </div>
 
-  <div class="campo">
-    <label><b>Correo Electrónico</b></label>
-    <input type="email" name="email" placeholder="Ej: reservas@valledelrio.cl">
-  </div>
+      <div class="campo">
+        <label><b>Correo Electrónico</b></label>
+        <input type="email" name="email" placeholder="Ej: reservas@valledelrio.cl">
+      </div>
 
-  <div class="campo">
-    <label><b>Teléfono</b></label>
-    <input type="tel" name="telefono" placeholder="Ej: +56 994440414">
-  </div>
+      <div class="campo">
+        <label><b>Teléfono</b></label>
+        <input type="tel" name="telefono" placeholder="Ej: +56 994440414">
+      </div>
 
-  <div class="campo">
-    <label><b>Estado del Registro</b></label>
-    <select name="estado_registro">
-      <option value="vigente">Vigente</option>
-      <option value="no-vigente">No Vigente</option>
-    </select>
-  </div>
+      <div class="campo">
+        <label><b>Estado del Registro</b></label>
+        <select name="estado_registro">
+          <option value="vigente">Vigente</option>
+          <option value="no-vigente">No Vigente</option>
+        </select>
+      </div>
 
-  <button type="submit" class="boton">Guardar Datos</button>
-</form>
+      <button type="submit" class="boton">Guardar Datos</button>
+    </form>
 
 
     <div class="nota">
-      <p>Comprueba que estos datos corresponden al servicio del cual obtuviste el código QR. Todos estos datos se encuentran validados por el <b>Servicio Nacional de Turismo.</b></p>
+      <p>Comprueba que estos datos corresponden al servicio del cual obtuviste el código QR. Todos estos datos se
+        encuentran validados por el <b>Servicio Nacional de Turismo.</b></p>
     </div>
 
     <h3>Encuentra el servicio turístico que necesitas en el</h3>
-    <a class="boton" target="_blank" href="https://serviciosturisticos.sernatur.cl/">BUSCADOR DE SERVICIOS TURISTICOS</a>
+    <a class="boton" target="_blank" href="https://serviciosturisticos.sernatur.cl/">BUSCADOR DE SERVICIOS
+      TURISTICOS</a>
 
     <footer>
       <div class="footer-logos">
@@ -95,5 +99,7 @@
       </p>
     </footer>
   </div>
+
 </body>
+
 </html>
