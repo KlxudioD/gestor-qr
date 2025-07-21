@@ -5,20 +5,27 @@ const QRCode = require('qrcode');
 const path = require('path');
 
 const app = express();
+
+// Middleware para procesar formularios
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('publico'));
+
+// Servir archivos estáticos desde la carpeta 'publico'
+app.use(express.static(path.join(__dirname, 'publico')));
+
+// Configurar EJS para renderizar vistas
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'evista'));
 
 // Conexión a MongoDB Atlas
-mongoose.connect('mongodb+srv://formuser:claudio1990@cluster0.yg1v1bx.mongodb.net/formulariosDB?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-});
+mongoose.connect(
+  'mongodb+srv://formuser:claudio1990@cluster0.yg1v1bx.mongodb.net/formulariosDB?retryWrites=true&w=majority&appName=Cluster0',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  }
+);
 
-
-
-// Esquema del formulario
+// Esquema y modelo para los registros
 const Registro = mongoose.model('Registro', {
   numero_registro: String,
   tipo_alojamiento: String,
@@ -32,36 +39,48 @@ const Registro = mongoose.model('Registro', {
   estado_registro: String
 });
 
-// Ruta para mostrar el formulario
+// Ruta raíz: sirve portada.html
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'publico', 'index.html'));
+  res.sendFile(path.join(__dirname, 'publico', 'portada.html'));
 });
 
-// Ruta para guardar datos y mostrar ficha
+// Ruta para guardar datos del formulario y mostrar ficha con QR
 app.post('/submit', async (req, res) => {
-  const count = await Registro.countDocuments();
-  const numeroRegistro = `ST-${1000 + count + 1}`; // N° registro automático
+  try {
+    const count = await Registro.countDocuments();
+    const numeroRegistro = `ST-${1000 + count + 1}`; // Número de registro automático
 
-  const nuevoRegistro = new Registro({ ...req.body, numero_registro: numeroRegistro });
-  await nuevoRegistro.save();
+    const nuevoRegistro = new Registro({ ...req.body, numero_registro: numeroRegistro });
+    await nuevoRegistro.save();
 
-  const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${nuevoRegistro._id}`;
-  const qr = await QRCode.toDataURL(urlFicha);
+    const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${nuevoRegistro._id}`;
+    const qr = await QRCode.toDataURL(urlFicha);
 
-  res.render('ficha', { datos: nuevoRegistro, qr });
+    res.render('ficha', { datos: nuevoRegistro, qr });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al guardar el registro.');
+  }
 });
 
-// Ruta para ver una ficha por ID
+// Ruta para mostrar ficha por ID
 app.get('/ficha/:id', async (req, res) => {
-  const datos = await Registro.findById(req.params.id);
-  if (!datos) return res.send('No se encontró el registro.');
+  try {
+    const datos = await Registro.findById(req.params.id);
+    if (!datos) return res.status(404).send('No se encontró el registro.');
 
-  const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${req.params.id}`;
-  const qr = await QRCode.toDataURL(urlFicha);
+    const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${req.params.id}`;
+    const qr = await QRCode.toDataURL(urlFicha);
 
-  res.render('ficha', { datos, qr });
+    res.render('ficha', { datos, qr });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send('Error al buscar el registro.');
+  }
 });
 
 // Iniciar servidor
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => console.log(`Servidor en http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
