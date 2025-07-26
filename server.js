@@ -48,7 +48,7 @@ app.get('/', (req, res) => {
 app.post('/submit', async (req, res) => {
   try {
     const count = await Registro.countDocuments();
-    const numeroRegistro = `ST-${1000 + count + 1}`; // Número de registro automático
+    const numeroRegistro = `ST-${1000 + count + 1}`;
 
     const nuevoRegistro = new Registro({ ...req.body, numero_registro: numeroRegistro });
     await nuevoRegistro.save();
@@ -56,24 +56,24 @@ app.post('/submit', async (req, res) => {
     const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${nuevoRegistro._id}?viaQr=true`;
     const qr = await QRCode.toDataURL(urlFicha);
 
-    res.render('ficha', { datos: nuevoRegistro, qr });
+    res.render('ficha', { datos: nuevoRegistro, qr, viaQr: false }); // ✅ Aquí viaQr: false
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al guardar el registro.');
   }
 });
 
-// Ruta para mostrar ficha por ID
+// Ruta para mostrar ficha por ID (vía QR)
 app.get('/ficha/:id', async (req, res) => {
   try {
     const datos = await Registro.findById(req.params.id);
     if (!datos) return res.status(404).send('No se encontró el registro.');
 
-    const viaQr = req.query.viaQr === 'true';
-    const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${req.params.id}`;
+    const viaQr = req.query.viaQr === 'true'; // ✅ Detectamos si viene desde el QR
+    const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${req.params.id}?viaQr=true`;
     const qr = await QRCode.toDataURL(urlFicha);
 
-    res.render('ficha', { datos, qr });
+    res.render('ficha', { datos, qr, viaQr }); // ✅ Pasamos viaQr a la vista
   } catch (error) {
     console.error(error);
     res.status(500).send('Error al buscar el registro.');
