@@ -62,43 +62,53 @@
             encuentran validados por el <b>Servicio Nacional de Turismo.</b>
     </div>
 
-    <div class="btnQR">
-        <button id="btnMostrarQR" class="boton">GENERA TU QR AQUÍ</button>
-    </div>
-
-    <footer class="footer">
-        <div class="footer-logos">
-            <img src="https://registro.sernatur.cl/registroempresarios/img/sernatur2020.png">
-            <img src="https://registro.sernatur.cl/registroempresarios/img/logo_r-1.png">
+    <% if (!viaQr) { %>
+        <div class="btnQR">
+            <button id="btnMostrarQR" class="boton">GENERA TU QR AQUÍ</button>
         </div>
-        <p class="copyright">
-            Servicio Nacional de Turismo - Av. Condell #679, Providencia - Santiago - Teléfono: 600 600 60 66
-        </p>
-    </footer>
+        <% } else { %>
+            <div class="btnQR">
+                <a href="https://sendature.com" target="_blank">
+                    <button class="boton">Ir a Sendature</button>
+                </a>
+            </div>
+            <% } %>
 
-    <div id="modalQR" class="modal">
-        <div class="modal-contenido">
-            <span class="cerrar" id="cerrarModal">&times;</span>
-            <h3 class="titulo-modal">Escanea el código QR:</h3>
-            <img src="<%= qr %>" alt="Código QR" class="qr">
-        </div>
-    </div>
 
-    <script>
-        document.getElementById('btnMostrarQR').addEventListener('click', function () {
-            document.getElementById('modalQR').style.display = 'block';
-        });
+                <footer class="footer">
+                    <div class="footer-logos">
+                        <img src="https://registro.sernatur.cl/registroempresarios/img/sernatur2020.png">
+                        <img src="https://registro.sernatur.cl/registroempresarios/img/logo_r-1.png">
+                    </div>
+                    <p class="copyright">
+                        Servicio Nacional de Turismo - Av. Condell #679, Providencia - Santiago - Teléfono: 600 600 60
+                        66
+                    </p>
+                </footer>
 
-        document.getElementById('cerrarModal').addEventListener('click', function () {
-            document.getElementById('modalQR').style.display = 'none';
-        });
+                <div id="modalQR" class="modal">
+                    <div class="modal-contenido">
+                        <span class="cerrar" id="cerrarModal">&times;</span>
+                        <h3 class="titulo-modal">Escanea el código QR:</h3>
+                        <img src="<%= qr %>" alt="Código QR" class="qr">
+                    </div>
+                </div>
 
-        window.addEventListener('click', function (e) {
-            if (e.target === document.getElementById('modalQR')) {
-                document.getElementById('modalQR').style.display = 'none';
-            }
-        });
-    </script>
+                <script>
+                    document.getElementById('btnMostrarQR').addEventListener('click', function () {
+                        document.getElementById('modalQR').style.display = 'block';
+                    });
+
+                    document.getElementById('cerrarModal').addEventListener('click', function () {
+                        document.getElementById('modalQR').style.display = 'none';
+                    });
+
+                    window.addEventListener('click', function (e) {
+                        if (e.target === document.getElementById('modalQR')) {
+                            document.getElementById('modalQR').style.display = 'none';
+                        }
+                    });
+                </script>
 
 
 </body>

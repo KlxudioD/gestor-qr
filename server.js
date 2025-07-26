@@ -53,7 +53,7 @@ app.post('/submit', async (req, res) => {
     const nuevoRegistro = new Registro({ ...req.body, numero_registro: numeroRegistro });
     await nuevoRegistro.save();
 
-    const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${nuevoRegistro._id}`;
+    const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${nuevoRegistro._id}?viaQr=true`;
     const qr = await QRCode.toDataURL(urlFicha);
 
     res.render('ficha', { datos: nuevoRegistro, qr });
@@ -69,6 +69,7 @@ app.get('/ficha/:id', async (req, res) => {
     const datos = await Registro.findById(req.params.id);
     if (!datos) return res.status(404).send('No se encontró el registro.');
 
+    const viaQr = req.query.viaQr === 'true';
     const urlFicha = `${req.protocol}://${req.get('host')}/ficha/${req.params.id}`;
     const qr = await QRCode.toDataURL(urlFicha);
 
